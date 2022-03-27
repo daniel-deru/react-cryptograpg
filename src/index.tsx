@@ -5,6 +5,8 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from "styled-components"
 import { themeInterface } from './interfaces';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const theme: themeInterface = {
   colors: {
@@ -15,11 +17,13 @@ const theme: themeInterface = {
 }
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

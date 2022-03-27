@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
+import encryptionReducer from "./encryptionSlice"
+import typeReducer from "./typesSlice"
 
 const store = configureStore({
     reducer: {
-
+        encryption: encryptionReducer,
+        type: typeReducer
     }
 })
 
