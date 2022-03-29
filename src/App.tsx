@@ -9,7 +9,7 @@ import Encode from './pages/tsx/encode';
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <Routes>
           <Route path="/" element={<Encode/>}/>
           <Route path="/help" element={<Help/>}/>

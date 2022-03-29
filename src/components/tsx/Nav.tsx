@@ -7,8 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../store/index"
 import { setEncryption } from "../../store/encryptionSlice"
 
 type EncryptionMethod = [string, string | Encryptions]
-const { BINARY, OCTAL, DECIMAL, HEX, MORSE, ROMAN } = Encryptions
-
 
 const Nav: React.FC = () => {
     const [methods, setMethods] = useState<EncryptionMethod[]>([])
@@ -35,7 +33,10 @@ const Nav: React.FC = () => {
 
     return (
         <NavComponent show={`${showNav ? "block" : "none"}`}>
-            <div onClick={() => setShowNav(!showNav)}>{methods.length > 0 && methods[encryptionType][1]}</div>
+            <div onClick={() => setShowNav(!showNav)}>
+                {methods.length > 0 && methods[encryptionType][1]}
+            </div>
+            
             <motion.ul>
                 {methods.map((method) => (
                     <li 

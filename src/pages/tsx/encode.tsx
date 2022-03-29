@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../store'
+import Header from '../../components/tsx/Header'
 
 const Encode: React.FC = () => {
   const codeType = useAppSelector(state => state.type)
@@ -10,7 +11,9 @@ const Encode: React.FC = () => {
     console.log(encryptionMethod)
   }, [codeType, encryptionMethod])
   return (
-    <div>: React.FC</div>
+    <div>
+      <Header />
+    </div> 
   )
 }
 
