@@ -8,6 +8,7 @@ export const HeaderComponent = styled.header`
 
     h1 {
         margin-left: 20px;
+        font-size: 2em;
     }
 
     a {

@@ -13,6 +13,9 @@ const theme: themeInterface = {
     brightGreen: "#00ff00",
     green: "#00c800",
     darkGreen: "#00ff0080"
+  },
+  fonts: {
+    retro: 'DotGothic16'
   }
 }
 ReactDOM.render(

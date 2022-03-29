@@ -1,8 +1,14 @@
 import { HelpPage } from "../styles/help.styled"
+import { FaAngleLeft } from "react-icons/fa"
+import { Link } from "react-router-dom"
 const Help: React.FC = () => {
   return (
     <HelpPage>
-      <h1>Welcome to Cryptograph</h1>
+      <div>
+        <Link to="../" > <FaAngleLeft /></Link>
+        <h1>Welcome to Cryptograph</h1>
+      </div>
+      
       <p>This application is used to encode and decode secret messages in an array of formats such as binary or morse code. You can optionally add a custom key to encrypt the message so that only someone with the key can decipher the message.
       </p>
       <h2>How to use:</h2>

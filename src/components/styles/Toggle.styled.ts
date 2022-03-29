@@ -12,8 +12,8 @@ export const ToggleComponent = styled.div`
     }
 
     span {
-        font-size: 2em;
-        padding: 10px;
+        font-size: 1.5em;
+        padding: 5px;
         margin: 0px 10px;
         border-radius: 10px;
         border: 2px solid transparent;
