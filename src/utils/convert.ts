@@ -1,46 +1,36 @@
 import { Encryptions } from "../store/encryptionSlice"
 import CryptoJS from 'crypto-js'
-const {RAW, BINARY, OCTAL, UNICODE, HEX, MORSE, ROMAN} = Encryptions
+import { getRadix } from "./helpers"
+import { encodeMorse, encodeRoman } from "./encode"
 
+const { BINARY, OCTAL, UNICODE, HEX, MORSE, ROMAN} = Encryptions
 
-export const Encode = (target: string, type: Encryptions, key: string | undefined): string => {
-    let message: string = ""
-
-    if(key) message = CryptoJS.AES.encrypt(target, key).toString()
-    if(key && type === RAW) return message
-
+export const encode = (target: string, type: Encryptions, key: string | undefined): string => {
+    let message: string = target
     let output: string = ""
     let radix: number = getRadix(type)
+    
+    let unicodeArray: number[] = []
 
+    if(key) message = CryptoJS.AES.encrypt(target, key).toString()
+    
+    unicodeArray = message.split("").map((char: string) => char.charCodeAt(0))
 
-    for(let i: number = 0; i < target.length; i++){
-        let result: string = target.charCodeAt(i).toString(radix)
-        if(i !== target.length - 1) result += " "
-        output += result
+    if(type === MORSE){
+        const input = key ? unicodeArray : message
+        output = encodeMorse(input)
     }
-    // Make functions to convert morse and roman and add unicode
+    else if(type === ROMAN){
+        output = encodeRoman(unicodeArray)
+    }
+    else {
+        for(let i: number = 0; i < message.length; i++){
+            let result: string = message.charCodeAt(i).toString(radix)
+            if(i !== message.length - 1) result += " "
+            output += result
+        }
+    }
+    
     return output
 }
 
-const getRadix = (type: Encryptions): number => {
-    let radix: number = 10
-
-    switch(type){
-        case BINARY: 
-            radix = 2
-            break
-        case OCTAL:
-            radix = 8
-            break
-        case UNICODE:
-            radix = 10
-            break
-        case HEX:
-            radix = 16
-            break
-        default:
-            radix = 10
-    }
-
-    return radix
-}

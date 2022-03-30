@@ -5,6 +5,8 @@ import Header from '../../components/tsx/Header'
 import { EncodePage } from '../styles/encode.styled'
 import { Code } from '../../store/typesSlice'
 
+import { encode } from '../../utils/convert'
+
 const { ENCODE, DECODE } = Code
 
 type InputType = string | undefined
@@ -20,11 +22,12 @@ const Encode: React.FC = () => {
   const keyRef = useRef<HTMLInputElement | null>(null)
 
   const encodeMessage = (): void => {
-    const message: InputType = messageRef.current?.value
+    let message: string = ""
     const key: InputType = keyRef.current?.value
+    if(messageRef?.current?.value) message = messageRef.current.value
+    
 
-    let encryptedMessage: EncryptionType = message
-    if(key && message) encryptedMessage = CryptoJS.AES.encrypt(message, key).toString()
+    let encryptedMessage: string = encode(message, encryptionMethod, key)
     setOuput(encryptedMessage)
 
   }

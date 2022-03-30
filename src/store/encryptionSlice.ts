@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export enum Encryptions {
-    RAW ,
     UNICODE,
     BINARY, 
     OCTAL,
