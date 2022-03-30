@@ -1,8 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-export enum Encryptions { BINARY, OCTAL, DECIMAL, HEX, MORSE, ROMAN }
+export enum Encryptions {
+    RAW ,
+    UNICODE,
+    BINARY, 
+    OCTAL,
+    HEX, 
+    MORSE, 
+    ROMAN 
+}
 
-const initialState: Encryptions = Encryptions.BINARY
+const initialState: Encryptions = Encryptions.UNICODE
 
 const encryptionSlice = createSlice({
     name: "encryption",

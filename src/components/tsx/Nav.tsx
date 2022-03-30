@@ -17,11 +17,13 @@ const Nav: React.FC = () => {
 
     const getMethods = (): void => {
         const values: EncryptionMethod[] = Object.entries(Encryptions)
-        setMethods(values.slice(0, Math.floor(values.length/2)))
+        console.log(values.slice(Math.floor(values.length/2)), values.length)
+        setMethods(values.slice(Math.floor(values.length/2)))
     }
 
     const setEncryptionMethod = (method: Encryptions): void => {
         setShowNav(false)
+        console.log(method)
         dispatch(setEncryption(method))
     }
 
@@ -34,15 +36,15 @@ const Nav: React.FC = () => {
     return (
         <NavComponent show={`${showNav ? "block" : "none"}`}>
             <div onClick={() => setShowNav(!showNav)}>
-                {methods.length > 0 && methods[encryptionType][1]}
+                {methods.length > 0 && methods[encryptionType][0]}
             </div>
             
             <motion.ul>
                 {methods.map((method) => (
                     <li 
                         key={method[0]}
-                        className={`${encryptionType == parseInt(method[0]) ? "selected" : ""}`} 
-                        onClick={() => setEncryptionMethod(parseInt(method[0]))}>{method[1]}
+                        className={`${encryptionType == method[1] ? "selected" : ""}`} 
+                        onClick={() => setEncryptionMethod(method[1] as Encryptions)}>{method[0]}
                     </li>
                 ))}
             </motion.ul>

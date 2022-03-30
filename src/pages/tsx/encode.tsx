@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import CryptoJS from 'crypto-js'
 import { useAppDispatch, useAppSelector } from '../../store'
 import Header from '../../components/tsx/Header'
@@ -7,26 +7,29 @@ import { Code } from '../../store/typesSlice'
 
 const { ENCODE, DECODE } = Code
 
+type InputType = string | undefined
+type EncryptionType = InputType | CryptoJS.lib.CipherParams
+
 const Encode: React.FC = () => {
+  const [output, setOuput] = useState<EncryptionType>("")
+
   const codeType = useAppSelector(state => state.type)
   const encryptionMethod = useAppSelector(state => state.encryption)
 
   const messageRef = useRef<HTMLTextAreaElement | null>(null)
   const keyRef = useRef<HTMLInputElement | null>(null)
 
-  const getMessage = (): void => {
-    const message: string | undefined = messageRef.current?.value
-    const key: string | undefined = keyRef.current?.value
+  const encodeMessage = (): void => {
+    const message: InputType = messageRef.current?.value
+    const key: InputType = keyRef.current?.value
 
-    let encryptedMessage: CryptoJS.lib.CipherParams | string
+    let encryptedMessage: EncryptionType = message
+    if(key && message) encryptedMessage = CryptoJS.AES.encrypt(message, key).toString()
+    setOuput(encryptedMessage)
 
-    if(key && message) {
-      encryptedMessage = CryptoJS.DES.encrypt(message, key).toString()
-      console.log("This is the encrypted message: ", encryptedMessage)
-      console.log("This is the decrypted message: ", CryptoJS.DES.decrypt(encryptedMessage, key).toString())
-    } else {
-      console.log(message)
-    }
+  }
+
+  const decodeMessage = () => {
 
   }
 
@@ -47,11 +50,13 @@ const Encode: React.FC = () => {
             <input type="text" ref={keyRef}/>
           </div>
         </div>
-        <button onClick={() => getMessage()}>{codeType == ENCODE ? "Encode" : "Decode"}</button>
+        <button onClick={() => codeType === ENCODE ? encodeMessage() : decodeMessage()}>
+          {codeType == ENCODE ? "Encode" : "Decode"}
+        </button>
       </main>
      
       <section>
-        
+        {output}
       </section>
     </EncodePage> 
   )
