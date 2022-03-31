@@ -34,3 +34,23 @@ export const encode = (target: string, type: Encryptions, key: string | undefine
     return output
 }
 
+export const decode = (target: string, type: Encryptions, key: string | undefined): string => {
+    let output: string =""
+    const radix = getRadix(type)
+    let targetArray: string[] = target.split(" ")
+
+    if(type === MORSE){
+
+    }
+    else if(type === ROMAN){
+
+    }
+    else {
+        let stringArr: string[] = targetArray.map(item => String.fromCharCode(parseInt(item.toString(), radix)))
+        output = stringArr.join("")
+
+    }
+
+    return output
+}
+

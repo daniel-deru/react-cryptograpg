@@ -5,7 +5,7 @@ import Header from '../../components/tsx/Header'
 import { EncodePage } from '../styles/encode.styled'
 import { Code } from '../../store/typesSlice'
 
-import { encode } from '../../utils/convert'
+import { encode, decode } from '../../utils/convert'
 
 const { ENCODE, DECODE } = Code
 
@@ -32,8 +32,13 @@ const Encode: React.FC = () => {
 
   }
 
-  const decodeMessage = () => {
+  const decodeMessage = (): void => {
+    let message: string =""
+    const key: InputType = keyRef.current?.value
+    if(messageRef.current?.value) message = messageRef.current.value
 
+    let decryptedMessage: string = decode(message, encryptionMethod, key)
+    setOuput(decryptedMessage)
   }
 
   useEffect(() => {
