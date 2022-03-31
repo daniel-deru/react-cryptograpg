@@ -37,7 +37,7 @@ const Encode: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(encryptionMethod)
+    // console.log(encryptionMethod)
   }, [codeType, encryptionMethod])
   return (
     <EncodePage>

@@ -28,6 +28,16 @@ export const getRadix = (type: Encryptions): number => {
 }
 
 export const getRoman = (number: number): string => {
-    let romanNumerals: any = roman
-    return ""
+    let romanNumerals: [string, number][] = Object.entries(roman).reverse()
+    let result: string = ""
+
+    for(let i: number = 0; i < romanNumerals.length; i++){
+        if(romanNumerals[i][1] <= number){
+            let m = Math.floor(number / romanNumerals[i][1])
+            number -= (romanNumerals[i][1] * m)
+            result += romanNumerals[i][0].repeat(m)
+        }
+    }
+
+    return result
 }

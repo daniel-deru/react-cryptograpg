@@ -17,13 +17,13 @@ const Nav: React.FC = () => {
 
     const getMethods = (): void => {
         const values: EncryptionMethod[] = Object.entries(Encryptions)
-        console.log(values.slice(Math.floor(values.length/2)), values.length)
+        // console.log(values.slice(Math.floor(values.length/2)), values.length)
         setMethods(values.slice(Math.floor(values.length/2)))
     }
 
     const setEncryptionMethod = (method: Encryptions): void => {
         setShowNav(false)
-        console.log(method)
+        // console.log(method)
         dispatch(setEncryption(method))
     }
 

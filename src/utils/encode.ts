@@ -1,4 +1,5 @@
 import morse from "./morse.json"
+import { getRoman } from "./helpers"
 
 export const encodeMorse = (message: string | number[]): string => {
     const morseCodes: any = morse
@@ -16,5 +17,12 @@ export const encodeMorse = (message: string | number[]): string => {
 }
 
 export const encodeRoman = (message: number[]): string => {
-    return "message"
+    let result: string = ""
+
+    console.log(message)
+    for(let i: number = 0; i < message.length; i++){
+        result += getRoman(message[i])
+        if(i !== message.length - 1) result += " "
+    }
+    return result
 }
