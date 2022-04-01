@@ -1,5 +1,7 @@
 import { Encryptions } from "../store/encryptionSlice"
 import roman from "./roman.json"
+import { GenericObject } from "../interfaces"
+
 
 const { BINARY, OCTAL, UNICODE, HEX, MORSE, ROMAN} = Encryptions
 
@@ -37,6 +39,18 @@ export const getRoman = (number: number): string => {
             number -= (romanNumerals[i][1] * m)
             result += romanNumerals[i][0].repeat(m)
         }
+    }
+
+    return result
+}
+
+
+
+
+export const swapObj = (object: GenericObject): GenericObject => {
+    let result: GenericObject = {}
+    for(let key in object){
+        result[object[key]] = key
     }
 
     return result

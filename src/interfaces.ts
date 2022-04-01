@@ -11,3 +11,7 @@ export interface themeInterface {
     colors: ColorInterface
     fonts: FontInterface
 }
+
+export interface GenericObject {
+    [key: string]: string
+}
