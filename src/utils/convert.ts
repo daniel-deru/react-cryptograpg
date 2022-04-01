@@ -2,7 +2,7 @@ import { Encryptions } from "../store/encryptionSlice"
 import CryptoJS from 'crypto-js'
 import { getRadix } from "./helpers"
 import { encodeMorse, encodeRoman } from "./encode"
-import { decodeMorse } from "./decode"
+import { decodeMorse, decodeRoman } from "./decode"
 
 const { BINARY, OCTAL, UNICODE, HEX, MORSE, ROMAN} = Encryptions
 
@@ -44,7 +44,7 @@ export const decode = (target: string, type: Encryptions, key: string | undefine
         output = decodeMorse(target, key)
     }
     else if(type === ROMAN){
-
+        output = decodeRoman(target)
     }
     else {
         let stringArr: string[] = targetArray.map(item => {

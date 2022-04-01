@@ -1,6 +1,7 @@
 import { Encryptions } from "../store/encryptionSlice"
-import { swapObj } from "./helpers"
+import { swapObj, romanToUnicode } from "./helpers"
 import morse  from "./morse.json"
+import roman from "./roman.json"
 import { GenericObject } from "../interfaces"
  
 export const decodeMorse = (message: string, key: string | undefined): string => {
@@ -8,13 +9,31 @@ export const decodeMorse = (message: string, key: string | undefined): string =>
     const reverseMorse: GenericObject = swapObj(morse)
 
     let wordArray: string[] | string[][] = message.split(" / ")
-        wordArray = wordArray.map(char => char.split(" "))
-        
-        for(let [i, word] of wordArray.entries()){
-           word = word.map(char => char = reverseMorse[char])
-           output += word.join("")
-           if(i !== wordArray.length - 1) output += " " 
-        }
+    wordArray = wordArray.map(char => char.split(" "))
+    
+    for(let [i, word] of wordArray.entries()){
+        word = word.map(char => char = reverseMorse[char])
+        output += word.join("")
+        if(i !== wordArray.length - 1) output += " " 
+    }
+
+    if(key) {
+        let unicodeArray: string[] = output.split(" ")
+        let charArray: string[] = unicodeArray.map(code => String.fromCharCode(parseInt(code)))
+        return charArray.join("")
+    }
 
     return output
+}
+
+export const decodeRoman = (message: string): string => {
+    let output: number[] = []
+    let romanArray: string[] = message.split(" ")
+    let reverseRoman: [string, number][] = Object.entries(roman).reverse()
+
+    for(let numeral of romanArray){
+        output.push(romanToUnicode(numeral))
+    }
+
+    return "output"
 }
