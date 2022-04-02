@@ -24,21 +24,24 @@ const Encode: React.FC = () => {
   const encodeMessage = (): void => {
     let message: string = ""
     const key: InputType = keyRef.current?.value
-    if(messageRef?.current?.value) message = messageRef.current.value
-    
 
+    if(!messageRef?.current?.value) return setOuput("No Message Entered")
+
+    message = messageRef.current.value
+    
     let encryptedMessage: string = encode(message, encryptionMethod, key)
-    setOuput(encryptedMessage)
+    return setOuput(encryptedMessage ? encryptedMessage : "Something Went Wrong")
 
   }
 
   const decodeMessage = (): void => {
     let message: string =""
     const key: InputType = keyRef.current?.value
-    if(messageRef.current?.value) message = messageRef.current.value
+    if(!messageRef.current?.value) return setOuput("No Message Entered")
+    message = messageRef.current.value
 
     let decryptedMessage: string = decode(message, encryptionMethod, key)
-    setOuput(decryptedMessage)
+    setOuput(decryptedMessage ? decryptedMessage : "Something Went Wrong")
   }
 
   useEffect(() => {
@@ -48,6 +51,14 @@ const Encode: React.FC = () => {
     <EncodePage>
       <Header />
       <main>
+        <div className='control-container'>
+          <button type='button'>Copy Message</button>
+          <button onClick={() => codeType === ENCODE ? encodeMessage() : decodeMessage()}>
+              {codeType == ENCODE ? "Encode" : "Decode"}
+          </button>
+          <button type='button'>Copy Key</button>
+        </div>
+
         <div className='input-container'>
           <div>
             <label htmlFor="">Enter Your Message</label>
@@ -58,12 +69,9 @@ const Encode: React.FC = () => {
             <input type="text" ref={keyRef}/>
           </div>
         </div>
-        <button onClick={() => codeType === ENCODE ? encodeMessage() : decodeMessage()}>
-          {codeType == ENCODE ? "Encode" : "Decode"}
-        </button>
       </main>
      
-      <section>
+      <section className='output'>
         {output}
       </section>
     </EncodePage> 

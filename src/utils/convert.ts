@@ -18,7 +18,7 @@ export const encode = (target: string, type: Encryptions, key: string | undefine
     unicodeArray = message.split("").map((char: string) => char.charCodeAt(0))
 
     if(type === MORSE){
-        const input = key ? unicodeArray : message
+        const input = key ? unicodeArray : message.toLowerCase()
         output = encodeMorse(input)
     }
     else if(type === ROMAN){
@@ -41,7 +41,8 @@ export const decode = (target: string, type: Encryptions, key: string | undefine
     let targetArray: string[] = target.split(" ")
 
     if(type === MORSE){
-        output = decodeMorse(target, key)
+        
+        output = decodeMorse(target.toLowerCase(), key)
     }
     else if(type === ROMAN){
         output = decodeRoman(target)

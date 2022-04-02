@@ -7,7 +7,7 @@ export const EncodePage = styled.section`
         .input-container {
             display: flex;
             justify-content: space-evenly;
-            margin-top: 4rem;
+            /* margin-top: 4rem; */
 
             div {
                 font-size: 2em;
@@ -31,6 +31,7 @@ export const EncodePage = styled.section`
                 }
 
                 textarea {
+                    position: relative;
                     width: 40vw;
                     max-width: 40vw;
                     min-width: 40vw;
@@ -48,6 +49,7 @@ export const EncodePage = styled.section`
                     &:focus {
                         border: 2px dashed ${({theme}) => theme.colors.green};
                     }
+
                 } 
             }
         }
@@ -57,7 +59,7 @@ export const EncodePage = styled.section`
             color: ${({theme}) => theme.colors.green};
             font-family: ${({theme}) => theme.fonts.retro};
             margin: 2rem;
-            font-size: 2em;
+            font-size: 1em;
             padding: 5px 30px;
             border: 2px inset ${({theme}) => theme.colors.green};
             cursor: pointer;
@@ -66,8 +68,13 @@ export const EncodePage = styled.section`
             &:active {
                 border: 2px outset ${({theme}) => theme.colors.green};
             }
-    }
+        }
         
+    }
+
+    .output {
+        width: 90vw;
+        margin: 2rem auto;
     }
 
     

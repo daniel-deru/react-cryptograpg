@@ -27,13 +27,12 @@ export const decodeMorse = (message: string, key: string | undefined): string =>
 }
 
 export const decodeRoman = (message: string): string => {
-    let output: number[] = []
+    let output: string[] = []
     let romanArray: string[] = message.split(" ")
-    let reverseRoman: [string, number][] = Object.entries(roman).reverse()
 
     for(let numeral of romanArray){
-        output.push(romanToUnicode(numeral))
+        output.push(String.fromCharCode(romanToUnicode(numeral)))
     }
 
-    return "output"
+    return output.join("")
 }
