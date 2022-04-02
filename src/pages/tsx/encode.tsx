@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import CryptoJS from 'crypto-js'
+import { motion } from 'framer-motion'
 import { useAppDispatch, useAppSelector } from '../../store'
 import Header from '../../components/tsx/Header'
 import { EncodePage } from '../styles/encode.styled'
@@ -7,13 +8,16 @@ import { Code } from '../../store/typesSlice'
 
 import { encode, decode } from '../../utils/convert'
 
+import Copy from '../../components/tsx/Copy'
+
 const { ENCODE, DECODE } = Code
 
 type InputType = string | undefined
-type EncryptionType = InputType | CryptoJS.lib.CipherParams
+type EncryptionType = InputType
 
 const Encode: React.FC = () => {
   const [output, setOuput] = useState<EncryptionType>("")
+  const [isCopied, setIsCopied] = useState<boolean>(false)
 
   const codeType = useAppSelector(state => state.type)
   const encryptionMethod = useAppSelector(state => state.encryption)
@@ -44,19 +48,25 @@ const Encode: React.FC = () => {
     setOuput(decryptedMessage ? decryptedMessage : "Something Went Wrong")
   }
 
+  const copy = (value: string | undefined) => {
+    if(value) navigator.clipboard.writeText(value)
+    setIsCopied(true)
+    setTimeout(() => setIsCopied(false), 1000)
+  }
+
   useEffect(() => {
-    // console.log(encryptionMethod)
   }, [codeType, encryptionMethod])
   return (
     <EncodePage>
+      <Copy show={isCopied} />
       <Header />
       <main>
         <div className='control-container'>
-          <button type='button'>Copy Message</button>
+          <button type='button' onClick={() => copy(messageRef?.current?.value)}>Copy Message</button>
           <button onClick={() => codeType === ENCODE ? encodeMessage() : decodeMessage()}>
               {codeType == ENCODE ? "Encode" : "Decode"}
           </button>
-          <button type='button'>Copy Key</button>
+          <button type='button' onClick={() => copy(keyRef?.current?.value)}>Copy Key</button>
         </div>
 
         <div className='input-container'>
@@ -71,9 +81,11 @@ const Encode: React.FC = () => {
         </div>
       </main>
      
-      <section className='output'>
-        {output}
-      </section>
+      <motion.section className='output'>
+        {output && output.split("").map(char => (
+          char
+        ))}
+      </motion.section>
     </EncodePage> 
   )
 }
