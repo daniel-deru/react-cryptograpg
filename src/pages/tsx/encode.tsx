@@ -27,7 +27,6 @@ const Encode: React.FC = () => {
   const keyRef = useRef<HTMLInputElement | null>(null)
 
   const encodeMessage = (): void => {
-    setOuput("")
     let message: string = ""
     const key: InputType = keyRef.current?.value
 
@@ -36,12 +35,12 @@ const Encode: React.FC = () => {
     message = messageRef.current.value
     
     let encryptedMessage: string = encode(message, encryptionMethod, key)
+
     return setOuput(encryptedMessage ? encryptedMessage : "Something Went Wrong")
 
   }
 
   const decodeMessage = (): void => {
-    setOuput("")
     let message: string =""
     const key: InputType = keyRef.current?.value
     if(!messageRef.current?.value) return setOuput("No Message Entered")
@@ -84,7 +83,7 @@ const Encode: React.FC = () => {
         </section>
 
         <section>
-            
+            {output && <Output output={output}/>}
         </section>
       </main>
      
