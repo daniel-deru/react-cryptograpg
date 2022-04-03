@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import CryptoJS from 'crypto-js'
-import { motion } from 'framer-motion'
+
 import { useAppDispatch, useAppSelector } from '../../store'
-import Header from '../../components/tsx/Header'
-import { EncodePage } from '../styles/encode.styled'
 import { Code } from '../../store/typesSlice'
 
-import { encode, decode } from '../../utils/convert'
-
+import Header from '../../components/tsx/Header'
+import Output from '../../components/tsx/Output'
 import Copy from '../../components/tsx/Copy'
+
+import { EncodePage } from '../styles/encode.styled'
+
+import { encode, decode } from '../../utils/convert'
 
 const { ENCODE, DECODE } = Code
 
@@ -26,6 +27,7 @@ const Encode: React.FC = () => {
   const keyRef = useRef<HTMLInputElement | null>(null)
 
   const encodeMessage = (): void => {
+    setOuput("")
     let message: string = ""
     const key: InputType = keyRef.current?.value
 
@@ -39,6 +41,7 @@ const Encode: React.FC = () => {
   }
 
   const decodeMessage = (): void => {
+    setOuput("")
     let message: string =""
     const key: InputType = keyRef.current?.value
     if(!messageRef.current?.value) return setOuput("No Message Entered")
@@ -61,31 +64,31 @@ const Encode: React.FC = () => {
       <Copy show={isCopied} />
       <Header />
       <main>
-        <div className='control-container'>
-          <button type='button' onClick={() => copy(messageRef?.current?.value)}>Copy Message</button>
+        <section className='control-container'>
+          <button type='button' onClick={() => copy(output)}>Copy Message</button>
           <button onClick={() => codeType === ENCODE ? encodeMessage() : decodeMessage()}>
               {codeType == ENCODE ? "Encode" : "Decode"}
           </button>
-          <button type='button' onClick={() => copy(keyRef?.current?.value)}>Copy Key</button>
-        </div>
+          <button type='button' onClick={() => copy(output)}>Copy Key</button>
+        </section>
 
-        <div className='input-container'>
+        <section className='input-container'>
           <div>
-            <label htmlFor="">Enter Your Message</label>
+            <label htmlFor="">Your Secret Key (Optional)</label>
+            <input type="text" ref={keyRef} />
+          </div>
+          <div>
+            <label htmlFor="">Your Message</label>
             <textarea name="" id="" ref={messageRef}></textarea>
           </div>
-          <div>
-            <label htmlFor="">Enter Your Key</label>
-            <input type="text" ref={keyRef}/>
-          </div>
-        </div>
+        </section>
+
+        <section>
+            
+        </section>
       </main>
      
-      <motion.section className='output'>
-        {output && output.split("").map(char => (
-          char
-        ))}
-      </motion.section>
+
     </EncodePage> 
   )
 }
